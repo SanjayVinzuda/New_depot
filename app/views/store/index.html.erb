@@ -1,0 +1,24 @@
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+<%=link_to 'My Cart', store_mycart_path ,  :class=> "btn btn-info"%>
+<h1><%=t('.Title_items')%></h1>
+<% cache ['store', Product.latest] do %>
+<% @product.each do |p|%>
+<% cache ['entry', p] do %>
+<div class="entry">
+  <%#= image_tag(p.image_url)%>
+  <%= link_to(image_tag(p.image_url),line_items_path(:product_id => p),
+  html_options = {:method => :post}) %>
+  <h3><%= p.title %></h3>
+  <%= sanitize p.descrption %>
+  <div class="paper_line">
+    <span class="price"><%= sprintf("$%0.02f",p.price)%></span>
+    <!-- <span class="price"><%#= number_to_currency(p.price)%></span> -->
+    <%=button_to t('.add'), line_items_path(:product_id => p), :remote => true%>
+  </div>
+</div>
+<% end %>
+<% end %>
+<% end %>
+

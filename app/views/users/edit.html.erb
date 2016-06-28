@@ -1,0 +1,53 @@
+<h1>Edit User</h1>
+<%#= render 'form' %>
+
+
+<div class="depot_form_user">
+  <%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <fieldset>
+    <legend>Enter User Details</legend>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name ,:disabled => 'true'%>
+    </div>
+
+    <%# if params[:action] == 'edit' || params[:action] == 'update' %>
+     <!-- 'update' needed or field will disappear when there is an error -->
+    <div class="field">
+      <%= f.label :current_password, 'Current Password:' %>
+      <%= f.password_field :current_password %>
+    </div>
+    <br/>
+
+    <% #end %>
+    
+    <div class="field">
+      <%= f.label :password, 'New Password' %><br>
+      <%= f.password_field :password %>
+    </div>
+    <br/>
+
+    <div class="field">
+      <%= f.label :password_confirmation,'Confirm Password' %><br>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div class="actions">
+      <%= f.submit :'Change Password' %>
+    </div>
+  </fieldset>
+  <% end %>
+</div>
+
+
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %>
